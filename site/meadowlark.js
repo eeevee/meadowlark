@@ -1,14 +1,10 @@
 const express = require('express')
+const fortune = require('./lib/fortune')
 const {
 	engine
 } = require('express-handlebars')
 const app = express()
 const port = process.env.PORT || 3000
-const fortunes = [
-	"Desista dos seus sonhos",
-	"Você não vai conseguir",
-	"Repita: eu sou um fracasso"
-]
 
 app.engine('handlebars', engine({
 	defaultLayout: 'main'
@@ -23,9 +19,8 @@ app.get('/', (req, res) => {
 })
 
 app.get('/about', (req, res) => {
-	const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)]
 	res.render('about', {
-		fortune: randomFortune
+		fortune: fortune.getFortune()
 	})
 })
 
